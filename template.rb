@@ -36,9 +36,12 @@ after_bundle do
     end
   CODE
 
-  insert_into_file "app/models/ability.rb", "\n  can :access, :rails_admin \n  can :read, :dashboard \n", after: "def initialize(user)"
-    
-
+  insert_into_file "app/models/ability.rb", after: "def initialize(user)\n" do
+    <<-CODE
+    can :access, :rails_admin 
+    can :read, :dashboard
+    CODE
+  end
 
   git :init
   git add: "."
