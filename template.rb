@@ -8,6 +8,7 @@ gsub_file "Gemfile", /^gem\s+["']sqlite3["'].*$/,''
 gem_group :development, :test do
   gem "rspec-rails"
   gem 'sqlite3', '~> 1.4'
+  gem 'factory_bot_rails'
 end
 
 gem_group :production do
@@ -40,6 +41,16 @@ after_bundle do
     <<-CODE
     can :access, :rails_admin 
     can :read, :dashboard
+    CODE
+  end
+
+  gsub_file "spec/rails_helper.rb", /# Dir/,'Dir'
+
+  create_file "spec/support/factory_bot.rb" do
+    <<-CODE
+    RSpec.configure do |config|
+      config.include FactoryBot::Syntax::Methods
+    end
     CODE
   end
 
