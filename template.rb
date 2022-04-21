@@ -45,6 +45,8 @@ after_bundle do
   end
 
   gsub_file "spec/rails_helper.rb", /# Dir/,'Dir'
+  gsub_file "config/initializers/devise.rb", "# config.navigational_formats = ['*/*', :html]", "config.navigational_formats = ['*/*', :html, :turbo_stream]"
+  gsub_file "config/initializers/devise.rb", '# config.sign_out_via = :delete', 'config.sign_out_via = :delete'
 
   create_file "spec/support/factory_bot.rb" do
     <<-CODE
